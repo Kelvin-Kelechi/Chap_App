@@ -1,89 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Chat = ({ user }) => {
-  const [message, setMessage] = useState("");
-  const [charts, setcharts] = useState(undefined);
-
-  // let user = "david";
-  const handleSend = () => {
-    console.log("Sending....");
-
-    const userName = localStorage.getItem("username");
-    const chart__data = localStorage.getItem("charts");
-
-    if (!chart__data) {
-      return localStorage.setItem(
-        "charts",
-        JSON.stringify([{ message: message, userName: user }])
-      );
-    }
-
-    const data = JSON.parse(chart__data);
-    console.log(data);
-    data.push({
-      message: message,
-      userName: user,
-    });
-    localStorage.removeItem("charts");
-
-    localStorage.setItem("charts", JSON.stringify(data));
-    setcharts(JSON.parse(localStorage.getItem("charts")));
-    setMessage("");
-  };
-
-  useEffect(
-    () => {
-      setcharts(JSON.parse(localStorage.getItem("charts")));
-    },
-    [localStorage.getItem("charts")],
-    charts
-  );
-
-  console.log(charts);
-  return (
-    <Main>
-      <div className="main2">
-        <div className="messages">
-          {charts
-            ? charts.map((val) => (
-                <div  
-                  className={
-                    val.userName != user ? "message_sender" : "message_you"
-                  }
-                >
-                  <div className={
-                    val.userName != user ? "message_sender_profile" : "message_you_profile"
-                  }>
-                    <span>{val.userName.charAt(0).toUpperCase()}</span>
-                  </div>
-                  <div className="text">
-                    <span>
-                      {val.userName != user
-                        ? `${val.userName.toUpperCase()}`
-                        : "You"}
-                    </span>
-                    <h2>{val.message}</h2>
-                  </div>
-                </div>
-              ))
-            : null}
-        </div>
-        <div className="input__box">
-          <input
-            placeholder="Enter Message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button onClick={handleSend}>Send</button>
-        </div>
-      </div>
-    </Main>
-  );
-};
-
-export default Chat;
-
 const Main = styled.div`
   width: 100%;
   background-color: white;
@@ -198,3 +115,86 @@ const Main = styled.div`
     background: #fff;
   }
 `;
+const Chat = ({ user }) => {
+  const [message, setMessage] = useState("");
+  const [charts, setcharts] = useState(undefined);
+
+   
+  const handleSend = () => {
+    console.log("Sending....");
+
+    const userName = localStorage.getItem("username");
+    const chart__data = localStorage.getItem("charts");
+
+    if (!chart__data) {
+      return localStorage.setItem(
+        "charts",
+        JSON.stringify([{ message: message, userName: user }])
+      );
+    }
+
+    const data = JSON.parse(chart__data);
+    console.log(data);
+    data.push({
+      message: message,
+      userName: user,
+    });
+    localStorage.removeItem("charts");
+
+    localStorage.setItem("charts", JSON.stringify(data));
+    setcharts(JSON.parse(localStorage.getItem("charts")));
+    setMessage("");
+  };
+
+  useEffect(
+    () => {
+      setcharts(JSON.parse(localStorage.getItem("charts")));
+    },
+    [localStorage.getItem("charts")],
+    charts
+  );
+
+  console.log(charts);
+  return (
+    <Main>
+      <div className="main2">
+        <div className="messages">
+          {charts
+            ? charts.map((val) => (
+                <div  
+                  className={
+                    val.userName != user ? "message_sender" : "message_you"
+                  }
+                >
+                  <div className={
+                    val.userName != user ? "message_sender_profile" : "message_you_profile"
+                  }>
+                    <span>{val.userName.charAt(0).toUpperCase()}</span>
+                  </div>
+                  <div className="text">
+                    <span>
+                      {val.userName != user
+                        ? `${val.userName.toUpperCase()}`
+                        : "You"}
+                    </span>
+                    <h2>{val.message}</h2>
+                  </div>
+                </div>
+              ))
+            : null}
+        </div>
+        <div className="input__box">
+          <input
+            placeholder="Enter Message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button onClick={handleSend}>Send</button>
+        </div>
+      </div>
+    </Main>
+  );
+};
+
+export default Chat;
+
