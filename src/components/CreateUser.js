@@ -2,32 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const CreateUser = ({ setUser }) => {
-  const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
-
-  const handleRoute = () => {
-    console.log("saving...");
-    // localStorage.setItem("username", userName);
-    setUser(userName);
-    navigate("/chart");
-  };
-  return (
-    <Main>
-      <div className="nav">
-<input
-        placeholder="enter username"
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <button onClick={handleRoute}>Enter Chart</button>
-      </div>
-      
-    </Main>
-  );
-};
-
-export default CreateUser;
-
 const Main = styled.div`
   width: 100%;
   height: 100vh;
@@ -55,3 +29,29 @@ const Main = styled.div`
     background: #8fc5df;
   }
 `;
+const CreateUser = ({ setUser }) => {
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+
+  const handleRoute = () => {
+    console.log("saving...");
+    // localStorage.setItem("username", userName);
+    setUser(userName);
+    navigate("/chart");
+  };
+  return (
+    <Main>
+      <div className="nav">
+<input
+        placeholder="enter username"
+        onChange={(e) => setUserName(e.target.value)}
+      />
+      <button onClick={handleRoute}>Enter Chart</button>
+      </div>
+      
+    </Main>
+  );
+};
+
+export default CreateUser;
+
